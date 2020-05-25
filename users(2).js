@@ -9,10 +9,6 @@ module.exports = function(app){
 					res.send(data);
 					});
 			});
-	app.set('/', (req, res) => {
-			const db = req.app.locals.db;
-			const collection = db.collection('users');
-			collection.set();
-	});
+			
 	// Put a user, create new one, delete, etc...
 };
