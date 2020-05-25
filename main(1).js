@@ -8,7 +8,7 @@ const port = 8080;
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 // Enter your credentials in below!
-const uri = "mongodb+srv://stewajos:Derrick1@assignmentcluster-kumvq.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://stewajos:Derrick1@AssignmentCluster-kumvq.mongodb.net/test?retryWrites=true&w=majority";
 
 // Create a variable to hold our db connection
 let connection;
@@ -37,31 +37,31 @@ process.on('SIGINT', () => {
 	connection.close();
 	process.exit();
 });
-function getUsers(req, res){
-	user = req.id 
-    var user = {"id" : 1010, "name": "josh"}
-    res.status(200).send(user);
-}
-function getJournals(req, res){
-    var user = {"id" : 1010, "name": "josh"}
-    res.status(200).send(user);
-}
-function getImages(req, res){
-    var user = {"id" : 1010, "name": "josh"}
-    res.status(200).send(user);
-}
-function getComments(req, res){
-    var user = {"id" : 1010, "name": "josh"}
-    res.status(200).send(user);
-}
-function getLocations(req, res){
-    var user = {"id" : 1010, "name": "josh"}
-    res.status(200).send(user);
-}
-function getStatic(req, res){
-    var user = {"id" : 1010, "name": "josh"}
-    res.status(200).send(user);
-}
+// function getUsers(req, res){
+// 	user = req.id 
+//     var user = {"id" : 1010, "name": "josh"}
+//     res.status(200).send(user);
+// }
+// function getJournals(req, res){
+//     var user = {"id" : 1010, "name": "josh"}
+//     res.status(200).send(user);
+// }
+// function getImages(req, res){
+//     var user = {"id" : 1010, "name": "josh"}
+//     res.status(200).send(user);
+// }
+// function getComments(req, res){
+//     var user = {"id" : 1010, "name": "josh"}
+//     res.status(200).send(user);
+// }
+// function getLocations(req, res){
+//     var user = {"id" : 1010, "name": "josh"}
+//     res.status(200).send(user);
+// }
+// function getStatic(req, res){
+//     var user = {"id" : 1010, "name": "josh"}
+//     res.status(200).send(user);
+// }
 
 
 
@@ -69,15 +69,15 @@ function getStatic(req, res){
 
 
 
-app.get("/users", getUsers);
-app.get("/journals", getJournals);
-app.get("/images", getImages);
-app.get("/comments", getComments);
-app.get("/locations", getLocations);
-app.get("/static", getStatic);
-app.set("/users", setUsers);
-app.set("/journals", setJournals);
-app.set("/images", setImages);
-app.set("/comments", setComments);
-app.set("/locations", setLocations);
-app.set("/static", setStatic);
+// app.get("/users", getUsers);
+// app.get("/journals", getJournals);
+// app.get("/images", getImages);
+// app.get("/comments", getComments);
+// app.get("/locations", getLocations);
+// app.get("/static", getStatic);
+// app.set("/users", setUsers);
+// app.set("/journals", setJournals);
+// app.set("/images", setImages);
+// app.set("/comments", setComments);
+// app.set("/locations", setLocations);
+// app.set("/static", setStatic);
