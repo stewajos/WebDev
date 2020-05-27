@@ -2,7 +2,7 @@
   "name": "webdev",
   "version": "1.0.0",
   "description": "Tutorial Code for teaching creation of rest API",
-  "main": "main(1).js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

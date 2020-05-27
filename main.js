@@ -8,7 +8,7 @@ const port = 8080;
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 // Enter your credentials in below!
-#const uri = "mongodb+srv://USERNAME:PASSWORD@assignmentcluster-kumvq.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://stewajos:Derrick1@assignmentcluster-bphll.mongodb.net/test?retryWrites=true&w=majority";
 
 // Create a variable to hold our db connection
 let connection;
