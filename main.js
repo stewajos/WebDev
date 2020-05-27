@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }))
 require('./users.js')(app);
 require('./journals.js')(app);
 require('./images.js')(app);
-
+require('./comments.js')(app);
 
 // Connect to the db; start listening if successful.
 MongoClient.connect(uri, {useNewUrlParser: true}).then(client => { 
