@@ -21,6 +21,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // Load in the users module
 require('./users.js')(app);
+require('./journals.js')(app);
+require('./images.js')(app);
+
 
 // Connect to the db; start listening if successful.
 MongoClient.connect(uri, {useNewUrlParser: true}).then(client => { 
