@@ -30,7 +30,7 @@ module.exports = function(app){
 		user['admin'] = data['admin'];
 		if (collection.find(user[id])) // check if the user id exists elsewhere in the DB if so its a bad request
 			res.send().code(400); 
-		res.send(user);
+		res.send(user).code(200);
 	});
 	
 	// Put a user, create new one, delete, etc...
