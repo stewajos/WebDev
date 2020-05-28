@@ -40,7 +40,16 @@ module.exports = function(app){
 		const collection = db.collection('users');	
 		var user={};
 		var body = req.body;
-
+		console.log(user);
+		if (collection.find({"id" : req.body.id})) {
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
+			//console.log(data);
+			res.send(data);		//send everything back
+			});
+		}
+		collection.remove({"id" : req.body.id}); //
+		res.sendStatus(202)
+		res.send(body);
 	}))
 	// Put a user, create new one, delete, etc...
 };

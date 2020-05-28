@@ -2,7 +2,7 @@
 // // You can get this connection information from the "Connect" button
 // // in the mongodb web interface.  Replace my uri below!
 
-// const uri = "mongodb+srv://matt:Hotman29@project1-lhcgj.mongodb.net/test?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://stewajos:Hotman29@project1-lhcgj.mongodb.net/test?retryWrites=true&w=majority";
 
 // console.log(uri);
 
