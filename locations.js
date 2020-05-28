@@ -17,10 +17,11 @@ module.exports = function(app){
 	app.put('/locations', (req, res) => { // create a new location
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('locations');	
-		var location; 
-		location['id'] = data['id'];
-		location['coordinates']= data['coordinates'];
-		location['human_readable_name'] = data['human_readable_name'];
+        var location = {};
+        var body = req.body; 
+		location['id'] = body['id'];
+		location['coordinates']= body['coordinates'];
+		location['human_readable_name'] = body['human_readable_name'];
 		if (collection.find(location[id])) // check if the location id exists elsewhere in the DB if so its a bad request
 			res.send().code(400); 
 		res.send(location);

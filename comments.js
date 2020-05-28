@@ -16,15 +16,16 @@ module.exports = function(app){
 					res.send(data);		//send everything back
 					});
 			});
-	app.put('/comments', (req, res) => { // create a new comment
+	app.post('/comments', (req, res) => { // create a new comment
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('comments');	
-		var comment; 
-		comment['id'] = data['id'];
-		comment['uid']= data['uid'];
-		comment['datetime'] = data['datetime'];
-		comment['journalId'] = data['journalId'];
-		if (collection.find(comment[Id])) // check if the comment id exists elsewhere in the DB if so its a bad request
+        var comment = {};
+        var body = req.body; 
+		comment['id'] = body['id'];
+		comment['uid']= body['uid'];
+		comment['datetime'] = body['datetime'];
+		comment['journalId'] = body['journalId'];
+		if (collection.find(comment[body.id])) // check if the comment id exists elsewhere in the DB if so its a bad request
 			res.send().code(400); 
 		res.send(comment);
 	});

@@ -19,13 +19,14 @@ module.exports = function(app){
 	app.put('/images', (req, res) => { // create a new image
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('images');	
-		var image; 
-		image['id'] = data['id'];
-		image['length']= data['length'];
-		image['filetype'] = data['filetype'];
-		image['bytes'] = data['bytes'];
-		image['locationId'] = data['locationId'];
-		if (collection.find(image[id])) // check if the image id exists elsewhere in the DB if so its a bad request
+        var image = {};
+        var body = req.body; 
+		image['id'] = body['id'];
+		image['length']= body['length'];
+		image['filetype'] = body['filetype'];
+		image['bytes'] = body['bytes'];
+		image['locationId'] = body['locationId'];
+		if (collection.find(image.id)) // check if the image id exists elsewhere in the DB if so its a bad request
 			res.send().code(400); 
 		res.send(image);
 	});
