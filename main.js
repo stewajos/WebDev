@@ -24,6 +24,8 @@ require('./users.js')(app);
 require('./journals.js')(app);
 require('./images.js')(app);
 require('./comments.js')(app);
+require('./locations.js')(app);
+
 
 // Connect to the db; start listening if successful.
 MongoClient.connect(uri, {useNewUrlParser: true}).then(client => { 

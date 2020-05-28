@@ -25,7 +25,7 @@ module.exports = function(app){
 		image['filetype'] = data['filetype'];
 		image['bytes'] = data['bytes'];
 		image['locationId'] = data['locationId'];
-		if (collection.find(image[Id])) // check if the image id exists elsewhere in the DB if so its a bad request
+		if (collection.find(image[id])) // check if the image id exists elsewhere in the DB if so its a bad request
 			res.send().code(400); 
 		res.send(image);
 	});

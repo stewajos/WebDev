@@ -18,20 +18,29 @@ module.exports = function(app){
 					res.send(data);		//send everything back
 					});
 			});
-	app.put('/users', (req, res) => { // create a new user
+	app.post('/users', (req, res) => { // create a new user
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('users');	
-		var user; 
-		user['id'] = data['id'];
-		user['name']= data['name'];
-		user['email'] = data['email'];
-		user['image'] = data['image'];
-		user['dateJoined'] = data['dateJoined'];
-		user['admin'] = data['admin'];
-		if (collection.find(user[id])) // check if the user id exists elsewhere in the DB if so its a bad request
+		var user={};
+		console.log(req.body);
+		var body = req.body;
+		user['id'] = body.id;
+		user['name']= body['name'];
+		user['email'] = body['email'];
+		user['image'] = body['image'];
+		user['dateJoined'] = body['dateJoined'];
+		user['admin'] = body['admin'];
+		console.log(user)
+		if (collection.find(user.id)) // check if the user id exists elsewhere in the DB if so its a bad request
 			res.send().code(400); 
-		res.send(user);
+		res.send(user).code(200);
 	});
-	
+	app.delete('/users', ((req, res) => {
+		const db = req.app.locals.db;	//access the database
+		const collection = db.collection('users');	
+		var user={};
+		var body = req.body;
+
+	}))
 	// Put a user, create new one, delete, etc...
 };
