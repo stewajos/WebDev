@@ -24,9 +24,9 @@ module.exports = function(app){
 		location['human_readable_name'] = body['human_readable_name'];
 		if (collection.find(location['id'])){
 			res.sendStatus(400);
-			res.send(); 
 		} // check if the location id exists elsewhere in the DB if so its a bad request
 		else{
+			collection.insert(location);
 			res.send(location);
 		}
 	});

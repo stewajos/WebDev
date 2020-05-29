@@ -27,8 +27,12 @@ module.exports = function(app){
 		journal['timestamp'] = body['timestamp'];
 		journal['locationId'] = body['locationId'];
 		if (collection.find(journal.id)) // check if the journal id exists elsewhere in the DB if so its a bad request
-			res.send().code(400); 
-		res.send(journal);
+			res.sendStatus(400); 
+		else{
+				collection.insert(journal)
+				res.send(journal);
+			}
+		
 	});
 	app.delete('/journals', (res, req) => {
 		const db = req.app.locals.db;	//access the database

@@ -25,11 +25,11 @@ module.exports = function(app){
 		comment['uid']= body['uid'];
 		comment['datetime'] = body['datetime'];
 		comment['journalId'] = body['journalId'];
-		if (collection.find(comment[body.id])){ // check if the comment id exists elsewhere in the DB if so its a bad request
+		if (!collection.find(comment[body.id])){ // check if the comment id exists elsewhere in the DB if so its a bad request
 			res.sendStatus(400);
-			res.send(); 
 		}
 		else {
+			collection.insert(comment)
 			res.send(comment);
 		}
 	});

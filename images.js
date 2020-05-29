@@ -27,8 +27,12 @@ module.exports = function(app){
 		image['bytes'] = body['bytes'];
 		image['locationId'] = body['locationId'];
 		if (collection.find(image.id)) // check if the image id exists elsewhere in the DB if so its a bad request
-			res.send().code(400); 
-		res.send(image);
+			res.sendStatus(400); 
+		else{
+			collection.insert(image)
+			res.send(image);
+		}
+		
 	});
 	app.delete('/images', (req,res) => {
 		const db = req.app.locals.db;	//access the database

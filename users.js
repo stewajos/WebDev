@@ -31,13 +31,13 @@ module.exports = function(app){
 		user['dateJoined'] = body['dateJoined'];
 		user['admin'] = body['admin'];
 		console.log(user)
-		if (collection.find(user.id)) // check if the user id exists elsewhere in the DB if so its a bad request
+		if (!collection.find(user['id'])){ // check if the user id exists elsewhere in the DB if so its a bad request
 			res.sendStatus(400); 
-			else{
-				res.sendStatus(200)
-				res.send(user)		
+		}
+		else{
+			collection.insert(user);
+			res.send(user)		
 			}
-		res.send(user).code(200);
 	});
 	app.delete('/users', ((req, res) => {
 		const db = req.app.locals.db;	//access the database
@@ -54,6 +54,24 @@ module.exports = function(app){
 		collection.remove({"id" : req.body.id}); //
 		res.sendStatus(202)
 		res.send(body);
-	}))
+	}));
+	app.put('/users', (res,req) => {
+		const db = req.app.locals.db;	//access the database
+		const collection = db.collection('users');	
+		var user={};
+		var body = req.body;
+		if (collection.find({"id" : req.body.id})) {
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab the user
+			//console.log(data);
+			collection.update(body)
+			res.send(data);		//send everything back
+			});
+		}
+		else {
+			res.sendStatus(404);
+			
+		}
+	});
 	// Put a user, create new one, delete, etc...
-};
+}
+
