@@ -16,7 +16,7 @@ module.exports = function(app){
 					res.send(data);		//send everything back
 					});
 			});
-	app.put('/images', (req, res) => { // create a new image
+	app.post('/images', (req, res) => { // create a new image
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('images');	
         var image = {};
@@ -30,6 +30,19 @@ module.exports = function(app){
 			res.send().code(400); 
 		res.send(image);
 	});
-	
+	app.delete('/images', (req,res) => {
+		const db = req.app.locals.db;	//access the database
+		const collection = db.collection('images');	
+		var body = req.body;
+		if (collection.find({"id" : req.body.id})) {
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
+			//console.log(data);
+			res.send(data);		//send everything back
+			});
+		}
+		collection.remove({"id" : req.body.id}); //
+		res.sendStatus(202)
+		res.send(body);
+	})
 	// Put a image, create new one, delete, etc...
 };

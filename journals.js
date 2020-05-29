@@ -16,7 +16,7 @@ module.exports = function(app){
 					res.send(data);		//send everything back
 					});
 			});
-	app.put('/journals', (req, res) => { // create a new journal
+	app.post('/journals', (req, res) => { // create a new journal
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('journals');	
 		var journal={};
@@ -30,6 +30,19 @@ module.exports = function(app){
 			res.send().code(400); 
 		res.send(journal);
 	});
-	
+	app.delete('/journals', (res, req) => {
+		const db = req.app.locals.db;	//access the database
+		const collection = db.collection('users');	
+		var body = req.body;
+		if (collection.find({"id" : req.body.id})) {
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
+			//console.log(data);
+			res.send(data);		//send everything back
+			});
+		}
+		collection.remove({"id" : req.body.id}); //
+		res.sendStatus(202)
+		res.send(body);
+	})
 	// Put a journal, create new one, delete, etc...
 };

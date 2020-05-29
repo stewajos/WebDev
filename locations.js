@@ -30,6 +30,20 @@ module.exports = function(app){
 			res.send(location);
 		}
 	});
-	
+	app.delete('/locations', (req, res) => {
+		const db = req.app.locals.db;	//access the database
+		const collection = db.collection('locations');	
+		var user={};
+		var body = req.body;
+		if (collection.find({"id" : req.body.id})) {
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
+			//console.log(data);
+			res.send(data);		//send everything back
+			});
+		}
+		collection.remove({"id" : req.body.id}); //
+		res.sendStatus(202)
+		res.send(body);
+	})
 	// Put a location, create new one, delete, etc...
 };

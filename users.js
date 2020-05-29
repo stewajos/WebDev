@@ -32,7 +32,11 @@ module.exports = function(app){
 		user['admin'] = body['admin'];
 		console.log(user)
 		if (collection.find(user.id)) // check if the user id exists elsewhere in the DB if so its a bad request
-			res.send().code(400); 
+			res.sendStatus(400); 
+			else{
+				res.sendStatus(200)
+				res.send(user)		
+			}
 		res.send(user).code(200);
 	});
 	app.delete('/users', ((req, res) => {
