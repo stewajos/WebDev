@@ -42,18 +42,17 @@ module.exports = function(app){
 	app.delete('/users', ((req, res) => {
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('users');	
-		var user={};
 		var body = req.body;
-		console.log(user);
-		if (collection.find({"id" : req.body.id})) {
+		if (!collection.find({"id" : req.body.id})) {
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
 			//console.log(data);
 			res.send(data);		//send everything back
+			res.sendStatus(404);
 			});
 		}
-		collection.remove({"id" : req.body.id}); //
-		res.sendStatus(202)
-		res.send(body);
+			collection.remove({"id" : req.body.id}); //
+			res.sendStatus(202);
+			res.send(body);
 	}));
 	app.put('/users', (req,res) => {
 		const db = req.app.locals.db;	//access the database
@@ -65,7 +64,7 @@ module.exports = function(app){
 		if (collection.find({"id": req.body.id})) {
 			collection.find({"id": req.body.id}).toArray(function(err, data){ 	// in the users table grab the user
 			//console.log(data);
-			collection.updateOne(result, body) 
+			// collection.updateOne(result, body) 
 			res.send(data);		//send everything back
 			});
 		}
