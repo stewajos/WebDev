@@ -43,7 +43,6 @@ module.exports = function(app){
 		} else {
 		collection.remove({"id" : req.body.id}); //
 		res.sendStatus(202)
-		res.send(body);
 		}	
 	})
 	// Put a location, create new one, delete, etc...

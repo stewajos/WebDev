@@ -44,7 +44,7 @@ module.exports = function(app){
 		if (!collection.find({"id" : req.body.id})) {
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
 			//console.log(data);
-			res.send(data);		//send everything back
+	//send everything back
 			res.sendStatus(404);
 			});
 		}else {
