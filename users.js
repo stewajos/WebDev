@@ -53,24 +53,28 @@ module.exports = function(app){
 			res.sendStatus(202);
 		}
 	}));
-	app.put('/users', (req,res) => {
+	app.put('/users', ((req,res) => {
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('users');	
-		var user={};
+		var user={name: req.body.name || "",
+		email: req.body.email || "",
+		image: req.body.image || "",
+		dateJoined: req.body.dateJoined || "",
+		admin: req.body.admin || ""};
 		var body = req.body;
-		var result = collection.find({"id": req.body.id});
-		console.log(result)
+		var oldUser = collection.find({"id": req.body.id});
+		//console.log(result)
 		if (collection.find({"id": req.body.id})) {
-			collection.find({"id": req.body.id}).toArray(function(err, data){ 	// in the users table grab the user
-			//console.log(data);
-			// collection.updateOne(result, body) 
-			res.send(data);		//send everything back
-			});
+			collection.findOne({"id": req.body.id}, function(err, data){
+			user = req.body.id
+			res.send(202);	
+			collection.replaceOne(data, user)
+			}) 	
 		}
 		else {
 			res.sendStatus(404);
 		}
-	});
+	}));
 	// Put a user, create new one, delete, etc...
 }
 
