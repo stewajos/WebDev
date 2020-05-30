@@ -9,15 +9,15 @@ module.exports = function(app){
     // }	
 
 	app.get('/journals', (req, res) => {
-			const db = req.app.locals.db;	//access the database
-			const collection = db.collection('journals');		//the journals document(table)
-			collection.find().toArray(function(err, data){ 	// in the journals table grab everything
+			const db = req.app.locals.db;	// This accesses the database
+			const collection = db.collection('journals');   // This is the journal document table
+			collection.find().toArray(function(err, data){ 	// Grabs everything in the journal document table
 					//console.log(data);
-					res.send(data);		//send everything back
+					res.send(data);		//This sends everything entered in back
 					});
 			});
-	app.post('/journals', (req, res) => { // create a new journal
-		const db = req.app.locals.db;	//access the database
+	app.post('/journals', (req, res) => { // Creates new journal entry
+		const db = req.app.locals.db;	// Acceses mongoDB
 		const collection = db.collection('journals');	
 		var journal={};
 		var body = req.body; 
@@ -26,20 +26,19 @@ module.exports = function(app){
 		journal['content'] = body['content'];
 		journal['timestamp'] = body['timestamp'];
 		journal['locationId'] = body['locationId'];
-		if (collection.find(journal.id)) // check if the journal id exists elsewhere in the DB if so its a bad request
-			res.sendStatus(400); 
-		else{
-				collection.insert(journal)
-				res.send(journal);
-			}
-		
+        if (collection.find(journal.id)) 
+        // Above checks if the journal id exists elsewhere in the DB.
+        // And if so its a bad request
+			res.send().code(400); 
+		res.send(journal);
 	});
 	app.delete('/journals', (res, req) => {
-		const db = req.app.locals.db;	//access the database
+		const db = req.app.locals.db;	// This accesses MongoDB
 		const collection = db.collection('users');	
 		var body = req.body;
 		if (collection.find({"id" : req.body.id})) {
-			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	
+            // Grabs everything in the user table
 			//console.log(data);
 			res.send(data);		//send everything back
 			});
