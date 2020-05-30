@@ -36,16 +36,18 @@ module.exports = function(app){
 		const db = req.app.locals.db;	// This accesses MongoDB
 		const collection = db.collection('users');	
 		var body = req.body;
-		if (collection.find({"id" : req.body.id})) {
+		if (!collection.find({"id" : req.body.id})) {
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	
             // Grabs everything in the user table
 			//console.log(data);
 			res.send(data);		//send everything back
-			});
-		}
+			res.sendStatus(404)
+		});
+		} else {
 		collection.remove({"id" : req.body.id}); //
 		res.sendStatus(202)
 		res.send(body);
+		}
 	})
 	// Put a journal, create new one, delete, etc...
 };

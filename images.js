@@ -42,11 +42,14 @@ module.exports = function(app){
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
 			//console.log(data);
 			res.send(data);		//send everything back
-			});
-		}
+			res.sendStatus(404);
+		});
+		}else{
+
 		collection.remove({"id" : req.body.id}); //
 		res.sendStatus(202)
 		res.send(body);
+		}
 	})
 	// Put a image, create new one, delete, etc...
 };

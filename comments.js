@@ -70,15 +70,17 @@ module.exports = function(app){
 		const collection = db.collection('comments');	
         var comment = {};
 		var body = req.body; 
-		if (collection.find({"id" : req.body.id})) {
+		if (!collection.find({"id" : req.body.id})) {
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// Deletes everything in the images table
 			//console.log(data);
-			res.send(data);		// This sends everything back to DB
+			res.send(data);	
+			res.sendStatus(404);	// This sends everything back to DB
 			});
+		}else {
+			collection.remove({"id" : req.body.id}); //
+			res.sendStatus(202)
+			res.send(body);	
 		}
-		collection.remove({"id" : req.body.id}); //
-		res.sendStatus(202)
-		res.send(body);
 	})
 	// Put a comment, create new one, delete, etc...
 };
