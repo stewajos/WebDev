@@ -55,21 +55,22 @@ module.exports = function(app){
 		res.sendStatus(202)
 		res.send(body);
 	}));
-	app.put('/users', (res,req) => {
+	app.put('/users', (req,res) => {
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('users');	
 		var user={};
 		var body = req.body;
-		if (collection.find({"id" : req.body.id})) {
-			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab the user
+		var result = collection.find({"id": req.body.id});
+		console.log(result)
+		if (collection.find({"id": req.body.id})) {
+			collection.find({"id": req.body.id}).toArray(function(err, data){ 	// in the users table grab the user
 			//console.log(data);
-			collection.update(body)
+			collection.updateOne(result, body) 
 			res.send(data);		//send everything back
 			});
 		}
 		else {
 			res.sendStatus(404);
-			
 		}
 	});
 	// Put a user, create new one, delete, etc...
