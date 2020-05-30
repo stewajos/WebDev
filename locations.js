@@ -22,7 +22,7 @@ module.exports = function(app){
 		location['id'] = body['id'];
 		location['coordinates']= body['coordinates'];
 		location['human_readable_name'] = body['human_readable_name'];
-		if (collection.find(location['id'])){
+		if (!collection.find(location['id'])){
 			res.sendStatus(400);
 		} // check if the location id exists elsewhere in the DB if so its a bad request
 		else{
@@ -35,15 +35,16 @@ module.exports = function(app){
 		const collection = db.collection('locations');	
 		var user={};
 		var body = req.body;
-		if (collection.find({"id" : req.body.id})) {
+		if (!collection.find({"id" : req.body.id})) {
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
 			//console.log(data);
-			res.send(data);		//send everything back
-			});
-		}
+			res.sendStatus(404)
+		});
+		} else {
 		collection.remove({"id" : req.body.id}); //
 		res.sendStatus(202)
 		res.send(body);
+		}	
 	})
 	// Put a location, create new one, delete, etc...
 };

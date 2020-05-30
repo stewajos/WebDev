@@ -26,7 +26,7 @@ module.exports = function(app){
 		image['filetype'] = body['filetype'];
 		image['bytes'] = body['bytes'];
 		image['locationId'] = body['locationId'];
-		if (collection.find(image.id)) // check if the image id exists elsewhere in the DB if so its a bad request
+		if (!collection.find(image.id)) // check if the image id exists elsewhere in the DB if so its a bad request
 			res.sendStatus(400); 
 		else{
 			collection.insert(image)
@@ -38,7 +38,7 @@ module.exports = function(app){
 		const db = req.app.locals.db;	//access the database
 		const collection = db.collection('images');	
 		var body = req.body;
-		if (collection.find({"id" : req.body.id})) {
+		if (!collection.find({"id" : req.body.id})) {
 			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
 			//console.log(data);
 			res.send(data);		//send everything back
@@ -47,8 +47,9 @@ module.exports = function(app){
 		}else{
 
 		collection.remove({"id" : req.body.id}); //
-		res.sendStatus(202)
 		res.send(body);
+		res.sendStatus(202)
+		
 		}
 	})
 	// Put a image, create new one, delete, etc...

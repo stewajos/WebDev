@@ -49,10 +49,11 @@ module.exports = function(app){
 			res.send(data);		//send everything back
 			res.sendStatus(404);
 			});
-		}
+		}else {
 			collection.remove({"id" : req.body.id}); //
 			res.sendStatus(202);
 			res.send(body);
+		}
 	}));
 	app.put('/users', (req,res) => {
 		const db = req.app.locals.db;	//access the database

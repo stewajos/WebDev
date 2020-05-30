@@ -33,7 +33,23 @@ module.exports = function(app){
 			collection.insert(comment)
 			res.send(comment);
 		}
-    });
+	});
+	app.delete('/comments', ((req, res) => {
+		const db = req.app.locals.db;	//access the database
+		const collection = db.collection('comments');	
+		var body = req.body;
+		if (!collection.find({"id" : req.body.id})) {
+			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// in the users table grab everything
+			//console.log(data);
+			res.send(data);		//send everything back
+			res.sendStatus(404);
+			});
+		}else {
+			collection.remove({"id" : req.body.id}); //
+			res.sendStatus(202);
+			res.send(body);
+		}
+	}));
 
     app.put('/comments', (req, res) => { // This creates a new comment
 		const db = req.app.locals.db;	// This accesses MongoDB
@@ -65,22 +81,5 @@ module.exports = function(app){
     //     }
     // });
 
-	app.delete('comments', (req, res) => {
-		const db = req.app.locals.db;	// This accesses MongoDB
-		const collection = db.collection('comments');	
-        var comment = {};
-		var body = req.body; 
-		if (!collection.find({"id" : req.body.id})) {
-			collection.find({"id" : req.body.id}).toArray(function(err, data){ 	// Deletes everything in the images table
-			//console.log(data);
-			res.send(data);	
-			res.sendStatus(404);	// This sends everything back to DB
-			});
-		}else {
-			collection.remove({"id" : req.body.id}); //
-			res.sendStatus(202)
-			res.send(body);	
-		}
-	})
 	// Put a comment, create new one, delete, etc...
 };
